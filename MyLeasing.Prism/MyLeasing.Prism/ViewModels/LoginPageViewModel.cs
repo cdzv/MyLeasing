@@ -20,6 +20,9 @@ namespace MyLeasing.Prism.ViewModels
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
+
+            Email = "jzuluaga55@hotmail.com";
+            Password = "123456";
         }
 
         public DelegateCommand LoginCommand => _loginCommand ?? (_loginCommand = new DelegateCommand(Login));
@@ -81,6 +84,9 @@ namespace MyLeasing.Prism.ViewModels
 
             IsEnabled = true;
             IsRunning = false;
+
+            var token = response.Result;
+            var owner = response2.Result;
 
             await App.Current.MainPage.DisplayAlert("Ok", "We are making progress!", "Accept");
 
