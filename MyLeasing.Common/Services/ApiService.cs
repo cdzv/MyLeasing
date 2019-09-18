@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using MyLeasing.Common.Models;
 using Newtonsoft.Json;
+using Plugin.Connectivity;
 
 namespace MyLeasing.Common.Services
 {
@@ -102,6 +103,21 @@ namespace MyLeasing.Common.Services
                     Message = ex.Message
                 };
             }
+        }
+
+        public async Task<bool> CheckConnectionAsync(string url)
+        {
+            if (!CrossConnectivity.Current.IsConnected)
+            {
+                return false;
+            }
+
+            return await CrossConnectivity.Current.IsRemoteReachable(url);
+        }
+
+        public Task<Response<OwnerResponse>> GetOwnerByEmailAsync(string urlBase, string servicePrefix, string controller, string tokenType, string accessToken, string email)
+        {
+            throw new NotImplementedException();
         }
     }
 }
