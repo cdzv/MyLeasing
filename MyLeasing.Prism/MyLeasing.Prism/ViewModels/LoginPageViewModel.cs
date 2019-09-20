@@ -7,6 +7,7 @@ namespace MyLeasing.Prism.ViewModels
 {
     public class LoginPageViewModel : ViewModelBase
     {
+        private readonly INavigationService _navigationService;
         private readonly IApiService _apiService;
         private bool _isRunning;
         private bool _isEnabled;
@@ -17,6 +18,7 @@ namespace MyLeasing.Prism.ViewModels
             INavigationService navigationService,
             IApiService apiService) : base(navigationService)
         {
+            _navigationService = navigationService;
             _apiService = apiService;
             Title = "Login";
             IsEnabled = true;
@@ -92,13 +94,12 @@ namespace MyLeasing.Prism.ViewModels
                 return;
             }
 
+            var token = response.Result;
+            
+            await _navigationService.NavigateAsync("PropertiesPage");
+
             IsEnabled = true;
             IsRunning = false;
-
-            var token = response.Result;
-            // var owner = response2.Result;
-
-            await App.Current.MainPage.DisplayAlert("Ok", "We are making progress!", "Accept");
 
         }
     }
